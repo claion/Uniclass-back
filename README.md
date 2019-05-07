@@ -19,3 +19,4 @@
 - `.env` 설정
   - MONGO_URL
   - PORT
+  - SECRET
