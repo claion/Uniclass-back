@@ -1,7 +1,11 @@
 import express from 'express';
 const router = express.Router();
-import userRouter from './users'
+import authRouter from './auth';
+import userRouter from './user';
+import passport from 'passport';
+
 /* GET home page. */
-router.post('/users', userRouter);
+router.use('/auth', authRouter);
+router.use('/users', passport.authenticate('jwt', {session: false}), userRouter)
 
 export default router;
