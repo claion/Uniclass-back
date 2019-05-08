@@ -20,3 +20,6 @@
   - MONGO_URL
   - PORT
   - SECRET
+  - EMAIL_ID
+  - EMAIL_PW
+  - MAIL_SERVICE

@@ -1,10 +1,16 @@
 import express from 'express';
 const router = express.Router();
-import {signup, login} from '../controllers/authController';
-import {getProfiles} from '../controllers/userController'
+
+import {signup, login, findId, forgotPassword} from '../controllers/authController';
+
+
 router.post('/signup', signup); // /auth/signup
 
 router.post('/login', login); // /auth/login
+
+router.post('/find_id', findId); // /auth/find_id
+
+router.post('/forgot_pw', forgotPassword); // /auth/forgot_pw
 
 // cors 문제가 생길 수 있음
 
