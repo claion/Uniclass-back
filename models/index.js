@@ -28,5 +28,6 @@ export default () => {
         connect();
     })
 
+    require('./emailToken');
     require('./user');
 }
