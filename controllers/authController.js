@@ -32,13 +32,13 @@ export const sendEmailToken = async (req, res, next) => {
         }
 
         let token;
-        let emailToken = await EmailToken.findOne({email: existUser.email})
+        let emailToken = await EmailToken.findOne($and[{email: existUser.email, purpose: 'FIND'}])
         if (emailToken) {
             emailToken.createdAt = Date.now();
             token = emailToken.token;
         } else {
             token = makeEmailToken()
-            emailToken = await EmailToken.create({email, token});
+            emailToken = await EmailToken.create({email, token, purpose: 'FIND'});
         }
         
         // 이메일로 랜덤 문자 보내기 => 입력
@@ -53,9 +53,9 @@ export const sendEmailToken = async (req, res, next) => {
 
         const mailOptions = {
             from: process.env.EMAIL_ID,
-            to: "changhoi0522@gmail.com",
+            to: email,
             subject: '[Uniclass] 이메일 인증',
-            text: token
+            text: `[${token}]을 입력해주세요`
         }
 
         transporter.sendMail(mailOptions, (error, info) => {
@@ -127,7 +127,7 @@ export const findId = async (req, res, next) => {
 
 
 
-const makeEmailToken = () => {
+export const makeEmailToken = () => {
     let token = '';
     const possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
     for(let i = 0; i < 10; i++ ) {

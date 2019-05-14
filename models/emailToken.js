@@ -11,6 +11,11 @@ const emailTokenSchema = new Schema({
         type: String,
         required: true
     },
+    purpose: {
+        type: String,
+        enum: ['FIND', 'CERTIFICATE'],
+        default: 'FIND'
+    },
     createdAt: {
         type: Date,
         default: Date.now(),
