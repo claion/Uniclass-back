@@ -7,23 +7,22 @@ import nodemailer from 'nodemailer';
 
 import User from '../models/user';
 import EmailToken from '../models/emailToken';
-
+import { makeEmailToken, makeEmailContent } from '../utils';
 require('dotenv').config();
 
 export const resetPassword = async (req, res, next) => {
   try {
     const {
-      body: { email, username, token }
+      body: { email, token }
     } = req;
     const hash = await bcrypt.hash(token, 12);
     const user = await User.findOneAndUpdate(
-      { $and: [{ username, email }] },
+      { email },
       { $set: { password: hash } }
     );
     res.status(http.OK).json({
       success: true,
-      message: '비밀번호가 리셋되었습니다.',
-      data: { user, token }
+      message: '비밀번호가 리셋되었습니다.'
     });
   } catch (e) {
     console.error(e);
@@ -44,13 +43,15 @@ export const sendEmailToken = async (req, res, next) => {
     }
 
     let token;
-    let emailToken = await EmailToken.findOne({ email: existUser.email });
+    let emailToken = await EmailToken.findOne({
+      $and: [{ email: existUser.email, type: 'forgot' }]
+    });
     if (emailToken) {
       emailToken.createdAt = Date.now();
       token = emailToken.token;
     } else {
       token = makeEmailToken();
-      emailToken = await EmailToken.create({ email, token });
+      emailToken = await EmailToken.create({ email, token, type: 'forgot' });
     }
 
     // 이메일로 랜덤 문자 보내기 => 입력
@@ -67,7 +68,7 @@ export const sendEmailToken = async (req, res, next) => {
       from: process.env.EMAIL_ID,
       to: email,
       subject: '[Uniclass] 이메일 인증',
-      text: token
+      html: makeEmailContent('forgot', email, token)
     };
 
     transporter.sendMail(mailOptions, (error, info) => {
@@ -82,8 +83,7 @@ export const sendEmailToken = async (req, res, next) => {
 
     res.status(http.CREATED).json({
       success: true,
-      message: '이메일이 보내졌습니다.',
-      data: emailToken
+      message: '이메일이 보내졌습니다.'
     });
   } catch (e) {
     console.error(e);
@@ -169,15 +169,4 @@ export const findId = async (req, res, next) => {
     console.error(e);
     next(e);
   }
-};
-
-const makeEmailToken = () => {
-  let token = '';
-  const possible =
-    'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-  for (let i = 0; i < 10; i++) {
-    token += possible.charAt(Math.floor(Math.random() * possible.length));
-  }
-
-  return token;
 };

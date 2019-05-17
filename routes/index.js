@@ -6,6 +6,10 @@ import passport from 'passport';
 
 /* GET home page. */
 router.use('/auth', authRouter);
-router.use('/users', passport.authenticate('jwt', {session: false}), userRouter)
+router.use(
+  '/users',
+  passport.authenticate('jwt', { session: false }),
+  userRouter
+);
 
 export default router;
