@@ -1,7 +1,7 @@
 import bcrypt from 'bcrypt';
 import User from '../models/user';
 import createError from 'http-errors';
-import http from 'http-status-codes'
+import http from 'http-status-codes';
 
 export const signup = async (req, res, next) => {
     const { body: { username, password, email, name }} = req;

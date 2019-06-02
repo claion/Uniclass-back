@@ -23,7 +23,14 @@ const userSchema = new Schema({
         type: Boolean,
         required: true,
         default: false
-    }
+    },
+    tables: [
+        {
+            type : mongoose.Schema.Types.ObjectId,
+            ref:"Table"
+        }
+    ]
+
     // 정지 유저: { 타입: 다른 모델 }
     // 프로필: {타입: 다른 모델 }
 }, {
@@ -31,4 +38,5 @@ const userSchema = new Schema({
     // paranoid: true // 소프트 델리트를 해야할까?
 })
 
-export default mongoose.model('User', userSchema);
+const model = mongoose.model('User', userSchema);
+export default model;
