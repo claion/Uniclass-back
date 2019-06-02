@@ -29,4 +29,5 @@ export default () => {
     })
 
     require('./user');
+    require('./timeTable');
 }

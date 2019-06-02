@@ -23,12 +23,19 @@ const userSchema = new Schema({
         type: Boolean,
         required: true,
         default: false
-    }
+    },
     // 정지 유저: { 타입: 다른 모델 }
     // 프로필: {타입: 다른 모델 }
+    timeTables: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "timeTable"
+        }
+    ]   
 }, {
     timestamps: true,
     // paranoid: true // 소프트 델리트를 해야할까?
 })
 
-export default mongoose.model('User', userSchema);
+const model = mongoose.model("User", userSchema);
+export default model;
