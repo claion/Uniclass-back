@@ -2,6 +2,7 @@ import http from 'http-status-codes';
 import nodemailer from 'nodemailer';
 
 import User from '../models/user';
+
 import EmailToken from '../models/emailToken';
 import { makeEmailToken, makeEmailContent } from '../utils';
 

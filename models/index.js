@@ -30,4 +30,5 @@ export default () => {
 
     require('./emailToken');
     require('./user');
+    require('./timeTable');
 }
