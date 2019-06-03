@@ -125,8 +125,6 @@ export const findId = async (req, res, next) => {
     }
 }
 
-
-
 export const makeEmailToken = () => {
     let token = '';
     const possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
