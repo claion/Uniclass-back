@@ -1,28 +1,37 @@
 import express from 'express';
 const router = express.Router();
 
-import { signup, login, findId, resetPassword, sendEmailToken } from '../controllers/authController';
-import { verifyEmailToken } from './middlewares'
+import {
+  signup,
+  login,
+  findId,
+  resetPassword,
+  sendEmailToken
+} from '../controllers/authController';
+import { verifyEmailToken } from './middlewares';
+import { auth } from './routes';
 
 /**
  * @body username, password, email, name
  */
-router.post('/signup', signup); // /auth/signup
+router.post(auth.SIGNUP, signup); // /auth/signup
 
-router.post('/login', login); // /auth/login
+router.post(auth.LOGIN, login); // /auth/login
 
-router.post('/find_id', findId); // /auth/find_id
-
+/**
+ * @body name, email
+ */
+router.post(auth.FIND_ID, findId); // /auth/find_id
 
 /**
  * @body name, email, username
  */
-router.post('/forgot_pw', sendEmailToken); // /auth/forgot_pw
+router.post(auth.FORGOT_PW, sendEmailToken); // /auth/forgot_pw
 
 /**
  * @body email, username, token
  */
-router.post('/reset_pw', verifyEmailToken, resetPassword); // /auth/reset_pw
+router.post(auth.RESET_PW, verifyEmailToken, resetPassword); // /auth/reset_pw
 
 // cors 문제가 생길 수 있음
 
