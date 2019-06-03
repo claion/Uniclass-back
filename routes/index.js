@@ -8,5 +8,4 @@ router.use('/users', userRouter);
 router.use('/tables', tableRouter);
 //internal router, external router, profile router? 추가 예정
 
-
 export default router;
