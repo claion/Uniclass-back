@@ -1,11 +1,11 @@
 import express from 'express';
 const router = express.Router();
 import userRouter from './users';
-import timeTableRouter from './timeTables';
+import tableRouter from './tables';
 
 /* GET home page. */
 router.use('/users', userRouter);
-router.use('/tables', timeTableRouter);
-// to do : internal router, external router, profile? router  
+router.use('/tables', tableRouter);
+//internal router, external router, profile router? 추가 예정
 
 export default router;
