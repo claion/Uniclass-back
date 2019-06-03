@@ -1,4 +1,4 @@
-import { BASE_URL, auth, users } from './routes/routes';
+import { BASE_URL, auth, users } from './routes/endPoints';
 
 export const makeEmailToken = () => {
   let token = '';

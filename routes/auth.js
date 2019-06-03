@@ -9,7 +9,7 @@ import {
   sendEmailToken
 } from '../controllers/authController';
 import { verifyEmailToken } from './middlewares';
-import { auth } from './routes';
+import { auth } from './endPoints';
 
 /**
  * @body username, password, email, name
