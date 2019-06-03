@@ -1,5 +1,6 @@
 import mongoose, {Schema} from 'mongoose';
 
+
 const tableSchema = new Schema({
     name: {
         type: String,
@@ -9,10 +10,12 @@ const tableSchema = new Schema({
         type: Boolean,
         required: true
     },
-    courses: {
-        type: Array,
-        required: false
-    }
+    courses: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Course'
+        }
+    ]
 });
 
 const model = mongoose.model('Table', tableSchema);
