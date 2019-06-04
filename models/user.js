@@ -28,7 +28,7 @@ const userSchema = new Schema({
     tables: [
         {
             type : mongoose.Schema.Types.ObjectId,
-            ref:"Table"
+            ref:'Table'
         }
     ]
 
@@ -39,5 +39,5 @@ const userSchema = new Schema({
     // paranoid: true // 소프트 델리트를 해야할까?
 })
 
-const model = mongoose.model("User", userSchema);
+const model = mongoose.model('User', userSchema);
 export default model;
