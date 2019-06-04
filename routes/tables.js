@@ -4,7 +4,7 @@ import {
     showTables
 } from '../controllers/tableController';
 
-router.get('', showTables);
+router.get('', showMainTable);
 
 
 export default router;

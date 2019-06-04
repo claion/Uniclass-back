@@ -1,7 +1,7 @@
 import express from 'express';
 const router = express.Router();
 
-import { users } from './routes';
+import { users } from './endPoints';
 import { verifyEmailToken } from './middlewares';
 import {
   getProfile,
