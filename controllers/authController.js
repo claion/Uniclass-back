@@ -103,7 +103,17 @@ export const signup = async (req, res, next) => {
     const existUser = await User.findOne({ $or: [{ username }, { email }] });
 
     if (existUser) {
-      throw createError(http.CONFLICT, '유저 정보가 이미 등록되어 있습니다.');
+      res.status(http.CONFLICT).json({
+        success: false,
+        message: {
+          username: [
+            '같은 아이디, 또는 이메일로 유저 정보가 이미 등록되어 있습니다.'
+          ],
+          email: [
+            '같은 아이디, 또는 이메일로 유저 정보가 이미 등록되어 있습니다.'
+          ]
+        }
+      });
     }
 
     const hash = await bcrypt.hash(password, 12);
